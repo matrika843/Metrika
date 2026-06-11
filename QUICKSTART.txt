@@ -1,0 +1,8 @@
+METRIKA v2 — quick start
+========================
+1. npm install
+2. npm run dev      -> opens http://localhost:3000
+3. npm run build    -> production files in /dist
+
+Pages: /  /services  /blog  /contact  /signin  /signup
+Replace picsum.photos images + Pexels videos with your real assets.
