@@ -19,10 +19,10 @@ export default function Showreel() {
         <div className="reel-ui">
           <div className="reel-top">
             <div className="reel-rec"><i></i>REC — Metrika studio reel</div>
-            <div>4K · 24FPS</div>
+            
           </div>
           <div className="reel-bottom">
-            <div className="reel-title">Every project,<br />a <em>premiere.</em></div>
+          
             <div className="reel-play" data-cursor="view">PLAY ▸</div>
           </div>
         </div>
