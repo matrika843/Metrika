@@ -52,7 +52,7 @@ export default function Navbar() {
     <>
       <nav className="nav" ref={navRef}>
         <Link className="brand" to="/" aria-label="Metrika home" onClick={() => setOpen(false)}>
-          <img src="/metrika-logo-nav.png" alt="METRIKA" />
+          <img src="/logo.png" alt="METRIKA" />
         </Link>
         <div className="nav-links">
           {links.map(l => (

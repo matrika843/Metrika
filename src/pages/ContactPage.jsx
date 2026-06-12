@@ -19,7 +19,7 @@ export default function ContactPage() {
   return (
     <main>
       <PageHero
-        num="05" eyebrow="Contact"
+        
         lines={[<>Let's <span className="accent">talk.</span></>]}
         lede="Tell us about your idea. We reply within 24 hours — usually much faster."
       />

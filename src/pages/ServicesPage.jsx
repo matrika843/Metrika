@@ -15,7 +15,7 @@ const services = [
     points: ['Next.js / React / Vite builds', 'Cinematic motion with GSAP', 'E-commerce & dashboards', '90+ Lighthouse performance scores'],
   },
   {
-    kicker: 'Service /02', tag: 'Growth', title: 'SEO Optimization', flip: true,
+   tag: 'Growth', title: 'SEO Optimization', flip: true,
     img: '/seo.jpg',
     copy: 'Beautiful sites mean nothing unseen. We engineer technical SEO, content strategy and local search presence so your brand ranks — and keeps ranking.',
     points: ['Technical audits & Core Web Vitals', 'Keyword & content strategy', 'Local SEO for Udupi / Mangalore', 'Monthly ranking reports'],
@@ -42,7 +42,7 @@ export default function ServicesPage() {
   return (
     <main>
       <PageHero
-        num="02" eyebrow="What we do"
+        
         lines={[<>Services built</>, <>like <span className="accent">productions.</span></>]}
         lede="Three disciplines, one director's vision. Every engagement is scripted, designed, and shot to make your brand the main character."
       />

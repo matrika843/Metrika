@@ -5,9 +5,9 @@ import { ArrowUpRight } from 'lucide-react'
 import Reveal from '../components/Reveal'
 
 const services = [
-  { num: '/01', name: 'Web Development', desc: 'Next.js · React · performance-first, animation-rich builds', img: '/web-development.png' },
-  { num: '/02', name: 'SEO Optimization', desc: 'Technical SEO · content strategy · rankings that compound', img: '/seo.jpg' },
-  { num: '/03', name: 'Branding Solutions', desc: 'Identity · voice · visual systems that tell your story', img: '/branding-solutions.png' },
+  { name: 'Web Development', desc: 'Next.js · React · performance-first, animation-rich builds', img: '/web-development.png' },
+  {  name: 'SEO Optimization', desc: 'Technical SEO · content strategy · rankings that compound', img: '/seo.jpg' },
+  {  name: 'Branding Solutions', desc: 'Identity · voice · visual systems that tell your story', img: '/branding-solutions.png' },
 ]
 
 export default function ServicesIndex() {
@@ -15,7 +15,7 @@ export default function ServicesIndex() {
   const imgRef = useRef(null)
 
   const enter = (img) => {
-    if (window.matchMedia('(hover: none)').matches) return
+    if (window.matchMedia('(hover: none), (max-width: 1024px)').matches) return
     imgRef.current.src = img
     gsap.to(previewRef.current, { opacity: 1, scale: 1, rotate: 0, duration: 0.4, ease: 'power3.out' })
   }

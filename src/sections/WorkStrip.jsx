@@ -65,6 +65,7 @@ export default function WorkStrip() {
           </Link>
         ))}
       </div>
+      <div className="work-swipe-hint">Swipe →</div>
       <div className="work-progress"><i ref={progressRef}></i></div>
     </section>
   )

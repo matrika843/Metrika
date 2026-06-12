@@ -5,7 +5,7 @@ export default function Magnetic({ children, strength = 0.3, className, style, .
   const ref = useRef(null)
   const onMove = (e) => {
     const el = ref.current
-    if (!el || window.matchMedia('(hover: none)').matches) return
+    if (!el || window.matchMedia('(hover: none), (max-width: 1024px)').matches) return
     const r = el.getBoundingClientRect()
     gsap.to(el, { x: (e.clientX - r.left - r.width / 2) * strength, y: (e.clientY - r.top - r.height / 2) * strength, duration: 0.4 })
   }

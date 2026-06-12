@@ -18,7 +18,7 @@ export default function Footer() {
     <footer className="footer" ref={rootRef}>
       <div className="foot-grid">
         <div className="foot-col">
-          <img className="foot-logo" src="/logo-white.png" alt="METRIKA" />
+          <img className="foot-logo" src="/logo.png" alt="METRIKA" />
           <span className="foot-status"><span className="pulse-dot"></span>New studio — now taking projects</span>
           <p style={{ marginTop: 18 }}>Udupi, Karnataka, India</p>
         </div>

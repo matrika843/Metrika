@@ -7,8 +7,6 @@ import Magnetic from '../components/Magnetic'
 export default function Hero({ revealed }) {
   const rootRef = useRef(null)
   const canvasRef = useRef(null)
-  const lbTop = useRef(null)
-  const lbBottom = useRef(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -28,12 +26,6 @@ export default function Hero({ revealed }) {
     }
     raf = requestAnimationFrame(draw)
     return () => { cancelAnimationFrame(raf); removeEventListener('resize', size) }
-  }, [])
-
-  useEffect(() => {
-    const t1 = gsap.fromTo(lbTop.current, { height: 28 }, { height: 0, scrollTrigger: { start: 0, end: 400, scrub: 0.5 } })
-    const t2 = gsap.fromTo(lbBottom.current, { height: 28 }, { height: 0, scrollTrigger: { start: 0, end: 400, scrub: 0.5 } })
-    return () => { t1.scrollTrigger?.kill(); t1.kill(); t2.scrollTrigger?.kill(); t2.kill() }
   }, [])
 
   useEffect(() => {
@@ -59,8 +51,6 @@ export default function Hero({ revealed }) {
 
   return (
     <section className="hero" ref={rootRef}>
-      <div className="letterbox top" ref={lbTop}></div>
-      <div className="letterbox bottom" ref={lbBottom}></div>
       <div className="hero-bg">
         <video autoPlay muted loop playsInline poster="https://picsum.photos/seed/metrikahero/1920/1080?grayscale">
           <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4" />

@@ -42,6 +42,19 @@ export default function App() {
   }, [isAuth])
 
   useEffect(() => {
+    let t
+    const onResize = () => {
+      clearTimeout(t)
+      t = setTimeout(() => ScrollTrigger.refresh(), 200)
+    }
+    window.addEventListener('resize', onResize)
+    return () => {
+      clearTimeout(t)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
+
+  useEffect(() => {
     if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true })
     window.scrollTo(0, 0)
     const id = requestAnimationFrame(() => ScrollTrigger.refresh())
