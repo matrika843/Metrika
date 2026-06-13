@@ -53,37 +53,20 @@ export default function WorkStrip() {
       </div>
       <div className="work-track" ref={trackRef}>
         {projects.map(p => (
-          p.url ? (
-            <a href={p.url} target="_blank" rel="noopener noreferrer" className="work-card" key={p.frame} data-cursor="view">
-              <div className="work-media">
-                <span className="work-frame-num">{p.frame}</span>
-                <span className="work-tag">{p.tag}</span>
-                <img src={p.img} alt={p.name} loading="lazy" decoding="async" />
-                <div className="work-info">
-                  <div>
-                    <div className="work-name">{p.name}</div>
-                    <div className="work-meta">{p.meta}</div>
-                  </div>
-                  <div className="work-year">{p.year}</div>
+          <Link to="/work" className="work-card" key={p.frame} data-cursor="view">
+            <div className="work-media">
+              <span className="work-frame-num">{p.frame}</span>
+              <span className="work-tag">{p.tag}</span>
+              <img src={p.img} alt={p.name} loading="lazy" decoding="async" />
+              <div className="work-info">
+                <div>
+                  <div className="work-name">{p.name}</div>
+                  <div className="work-meta">{p.meta}</div>
                 </div>
+                <div className="work-year">{p.year}</div>
               </div>
-            </a>
-          ) : (
-            <Link to="/work" className="work-card" key={p.frame} data-cursor="view">
-              <div className="work-media">
-                <span className="work-frame-num">{p.frame}</span>
-                <span className="work-tag">{p.tag}</span>
-                <img src={p.img} alt={p.name} loading="lazy" decoding="async" />
-                <div className="work-info">
-                  <div>
-                    <div className="work-name">{p.name}</div>
-                    <div className="work-meta">{p.meta}</div>
-                  </div>
-                  <div className="work-year">{p.year}</div>
-                </div>
-              </div>
-            </Link>
-          )
+            </div>
+          </Link>
         ))}
       </div>
       <div className="work-swipe-hint">Swipe →</div>
