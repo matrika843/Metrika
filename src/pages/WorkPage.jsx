@@ -18,14 +18,25 @@ export default function WorkPage() {
         <div className="blog-grid">
           {projects.map((p, i) => (
             <Reveal as="div" key={p.frame} delay={(i % 3) * 0.08}>
-              <div className="blog-card">
-                <div className="blog-card-media">
-                  <img src={p.img} alt={p.name} style={{ objectFit: 'contain', background: 'var(--surface)' }} />
+              {p.url ? (
+                <a href={p.url} target="_blank" rel="noopener noreferrer" className="blog-card" data-cursor="view">
+                  <div className="blog-card-media">
+                    <img src={p.img} alt={p.name} style={{ objectFit: 'contain', background: 'var(--surface)' }} />
+                  </div>
+                  <span className="blog-tag">{p.tag}</span>
+                  <h3>{p.name}</h3>
+                  <div className="blog-meta">{p.meta} · {p.year}</div>
+                </a>
+              ) : (
+                <div className="blog-card">
+                  <div className="blog-card-media">
+                    <img src={p.img} alt={p.name} style={{ objectFit: 'contain', background: 'var(--surface)' }} />
+                  </div>
+                  <span className="blog-tag">{p.tag}</span>
+                  <h3>{p.name}</h3>
+                  <div className="blog-meta">{p.meta} · {p.year}</div>
                 </div>
-                <span className="blog-tag">{p.tag}</span>
-                <h3>{p.name}</h3>
-                <div className="blog-meta">{p.meta} · {p.year}</div>
-              </div>
+              )}
             </Reveal>
           ))}
         </div>

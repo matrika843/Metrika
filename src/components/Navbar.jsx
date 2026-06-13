@@ -14,9 +14,26 @@ const links = [
 export default function Navbar() {
   const navRef = useRef(null)
   const menuRef = useRef(null)
+  const accountRef = useRef(null)
   const [open, setOpen] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
   const navigate = useNavigate()
   const { user, signOut } = useAuth()
+
+  useEffect(() => {
+    if (!accountOpen) return
+    const onClick = (e) => {
+      if (!accountRef.current?.contains(e.target)) setAccountOpen(false)
+    }
+    document.addEventListener('mousedown', onClick)
+    return () => document.removeEventListener('mousedown', onClick)
+  }, [accountOpen])
+
+  const handleSignOut = async () => {
+    setAccountOpen(false)
+    await signOut()
+    navigate('/')
+  }
 
   useEffect(() => {
     let lastY = 0
@@ -61,10 +78,27 @@ export default function Navbar() {
         </div>
         <div className="nav-right">
           {user ? (
-            <>
-              <span className="nav-account">{user.displayName || user.email}</span>
-              <button type="button" className="nav-signin nav-signout" onClick={() => signOut()}>Sign out</button>
-            </>
+            <div className="nav-account" ref={accountRef}>
+              <button
+                type="button"
+                className="nav-avatar"
+                aria-label="Account menu"
+                onClick={() => setAccountOpen(v => !v)}
+              >
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt="" />
+                ) : (
+                  <span>{(user.displayName || user.email || '?').charAt(0).toUpperCase()}</span>
+                )}
+              </button>
+              {accountOpen && (
+                <div className="nav-account-menu">
+                  <div className="nav-account-name">{user.displayName || 'Account'}</div>
+                  <div className="nav-account-email">{user.email}</div>
+                  <button type="button" className="nav-account-logout" onClick={handleSignOut}>Log out</button>
+                </div>
+              )}
+            </div>
           ) : (
             <Link to="/signin" className="nav-signin">Sign in</Link>
           )}

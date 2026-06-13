@@ -13,6 +13,7 @@ import ServicesPage from './pages/ServicesPage'
 import BlogPage from './pages/BlogPage'
 import ContactPage from './pages/ContactPage'
 import AuthPage from './pages/AuthPage'
+import ProtectedRoute from './components/ProtectedRoute'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -68,7 +69,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home revealed={revealed} />} />
-        <Route path="/work" element={<WorkPage />} />
+        <Route path="/work" element={<ProtectedRoute><WorkPage /></ProtectedRoute>} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/contact" element={<ContactPage />} />

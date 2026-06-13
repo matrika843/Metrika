@@ -4,8 +4,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export const projects = [
-  { frame: 'Frame 001', tag: 'E-commerce', img: '/project/Sara-central.png', name: 'Sara Central', meta: 'Full-stack store · live in production', year: "'25" },
-  { frame: 'Frame 002', tag: 'Digital Agency', img: '/project/intouchmarketingsolutions.png', name: 'InTouch Marketing Solutions', meta: 'Digital marketing agency · brand & growth', year: "'25" },
+  { frame: 'Frame 001', tag: 'E-commerce', img: '/project/Sara-central.png', name: 'Sara Central', meta: 'Full-stack store · live in production', year: "'25", url: 'https://saracentral.com' },
+  { frame: 'Frame 002', tag: 'Digital Agency', img: '/project/intouchmarketingsolutions.png', name: 'InTouch Marketing Solutions', meta: 'Digital marketing agency · brand & growth', year: "'25", url: 'https://intouchmarketingsolutions.in' },
   { frame: 'Frame 003', tag: 'RAG chatbot', img: 'https://picsum.photos/seed/ragbot/1200/750', name: 'Conversa RAG', meta: 'Document AI · LangChain', year: "'24" },
   { frame: 'Frame 004', tag: 'Your project', img: 'https://picsum.photos/seed/nextproject/1200/750', name: 'Your story, next', meta: "Let's write the script together", year: "'26" },
 ]
@@ -49,20 +49,37 @@ export default function WorkStrip() {
       </div>
       <div className="work-track" ref={trackRef}>
         {projects.map(p => (
-          <Link to="/work" className="work-card" key={p.frame} data-cursor="view">
-            <div className="work-media">
-              <span className="work-frame-num">{p.frame}</span>
-              <span className="work-tag">{p.tag}</span>
-              <img src={p.img} alt={p.name} />
-              <div className="work-info">
-                <div>
-                  <div className="work-name">{p.name}</div>
-                  <div className="work-meta">{p.meta}</div>
+          p.url ? (
+            <a href={p.url} target="_blank" rel="noopener noreferrer" className="work-card" key={p.frame} data-cursor="view">
+              <div className="work-media">
+                <span className="work-frame-num">{p.frame}</span>
+                <span className="work-tag">{p.tag}</span>
+                <img src={p.img} alt={p.name} />
+                <div className="work-info">
+                  <div>
+                    <div className="work-name">{p.name}</div>
+                    <div className="work-meta">{p.meta}</div>
+                  </div>
+                  <div className="work-year">{p.year}</div>
                 </div>
-                <div className="work-year">{p.year}</div>
               </div>
-            </div>
-          </Link>
+            </a>
+          ) : (
+            <Link to="/work" className="work-card" key={p.frame} data-cursor="view">
+              <div className="work-media">
+                <span className="work-frame-num">{p.frame}</span>
+                <span className="work-tag">{p.tag}</span>
+                <img src={p.img} alt={p.name} />
+                <div className="work-info">
+                  <div>
+                    <div className="work-name">{p.name}</div>
+                    <div className="work-meta">{p.meta}</div>
+                  </div>
+                  <div className="work-year">{p.year}</div>
+                </div>
+              </div>
+            </Link>
+          )
         ))}
       </div>
       <div className="work-swipe-hint">Swipe →</div>
