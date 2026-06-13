@@ -15,6 +15,6 @@ export default defineConfig({
     reportCompressedSize: true
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', 'gsap', 'three']
+    include: ['react', 'react-dom', 'gsap']
   }
 })
