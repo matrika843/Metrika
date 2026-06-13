@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useAuth } from '../context/AuthContext'
+import Avatar from './Avatar'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -25,8 +26,15 @@ export default function Navbar() {
     const onClick = (e) => {
       if (!accountRef.current?.contains(e.target)) setAccountOpen(false)
     }
+    const onKey = (e) => {
+      if (e.key === 'Escape') setAccountOpen(false)
+    }
     document.addEventListener('mousedown', onClick)
-    return () => document.removeEventListener('mousedown', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onClick)
+      document.removeEventListener('keydown', onKey)
+    }
   }, [accountOpen])
 
   const handleSignOut = async () => {
@@ -82,17 +90,14 @@ export default function Navbar() {
               <button
                 type="button"
                 className="nav-avatar"
-                aria-label="Account menu"
+                aria-label={`Account menu for ${user.displayName || user.email || 'user'}`}
                 onClick={() => setAccountOpen(v => !v)}
               >
-                {user.photoURL ? (
-                  <img src={user.photoURL} alt="" />
-                ) : (
-                  <span>{(user.displayName || user.email || '?').charAt(0).toUpperCase()}</span>
-                )}
+                <Avatar name={user.displayName} email={user.email} size={38} />
               </button>
               {accountOpen && (
                 <div className="nav-account-menu">
+                  <Avatar name={user.displayName} email={user.email} size={48} className="nav-account-avatar" />
                   <div className="nav-account-name">{user.displayName || 'Account'}</div>
                   <div className="nav-account-email">{user.email}</div>
                   <button type="button" className="nav-account-logout" onClick={handleSignOut}>Log out</button>
