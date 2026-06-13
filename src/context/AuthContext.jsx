@@ -7,7 +7,8 @@ import {
   signOut as firebaseSignOut,
   updateProfile,
 } from 'firebase/auth'
-import { auth, googleProvider, firebaseEnabled } from '../lib/firebase'
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
+import { auth, db, googleProvider, firebaseEnabled } from '../lib/firebase'
 
 const AuthContext = createContext(null)
 
@@ -30,9 +31,19 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const upsertUserDoc = async (u, extra = {}) => {
+    await setDoc(doc(db, 'users', u.uid), {
+      fullName: u.displayName || extra.fullName || '',
+      email: u.email,
+      createdAt: serverTimestamp(),
+      ...extra,
+    }, { merge: true })
+  }
+
   const signInWithGoogle = async () => {
     requireFirebase()
     const result = await signInWithPopup(auth, googleProvider)
+    await upsertUserDoc(result.user)
     return result.user
   }
 
@@ -40,6 +51,7 @@ export function AuthProvider({ children }) {
     requireFirebase()
     const result = await createUserWithEmailAndPassword(auth, email, password)
     if (name) await updateProfile(result.user, { displayName: name })
+    await upsertUserDoc(result.user, { fullName: name })
     return result.user
   }
 
@@ -55,7 +67,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, firebaseEnabled, signInWithGoogle, signUpWithEmail, signInWithEmail, signOut }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: Boolean(user), loading, firebaseEnabled, signInWithGoogle, signUpWithEmail, signInWithEmail, signOut }}>
       {children}
     </AuthContext.Provider>
   )

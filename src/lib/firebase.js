@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -14,4 +15,8 @@ export const firebaseEnabled = Boolean(firebaseConfig.apiKey && firebaseConfig.p
 
 export const app = firebaseEnabled ? initializeApp(firebaseConfig) : null
 export const auth = firebaseEnabled ? getAuth(app) : null
+export const db = firebaseEnabled ? getFirestore(app) : null
 export const googleProvider = new GoogleAuthProvider()
+
+// To VIEW registered users: Firebase Console -> Authentication -> Users
+// Extra profile data (fullName, email, createdAt) lives in Firestore -> users collection
