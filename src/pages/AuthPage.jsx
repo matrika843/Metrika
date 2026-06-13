@@ -125,16 +125,16 @@ export default function AuthPage({ mode }) {
               {signup && (
                 <div className="field">
                   <label htmlFor="auth-name">Full name</label>
-                  <input id="auth-name" required placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} />
+                  <input id="auth-name" required placeholder="" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
               )}
               <div className="field">
                 <label htmlFor="auth-email">Email</label>
-                <input id="auth-email" type="email" required placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input id="auth-email" type="email" required placeholder="" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className="field">
                 <label htmlFor="auth-pass">Password</label>
-                <input id="auth-pass" type="password" required minLength="6" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input id="auth-pass" type="password" required minLength="6" placeholder="" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               <Magnetic className="auth-submit" style={{ display: 'block', width: '100%' }}>
                 <button type="submit" className="btn btn-solid" disabled={loading || !firebaseEnabled}>
@@ -147,12 +147,12 @@ export default function AuthPage({ mode }) {
               {signup && !otpSent && (
                 <div className="field">
                   <label htmlFor="auth-name-otp">Full name</label>
-                  <input id="auth-name-otp" required placeholder="Your name" />
+                  <input id="auth-name-otp" required placeholder="" />
                 </div>
               )}
               <div className="field">
                 <label htmlFor="auth-mobile">Mobile number or email</label>
-                <input id="auth-mobile" required placeholder="+91 98765 43210 or you@company.com" disabled={otpSent} />
+                <input id="auth-mobile" required placeholder="" disabled={otpSent} />
               </div>
               {otpSent && (
                 <div className="field">
