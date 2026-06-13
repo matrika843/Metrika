@@ -16,6 +16,7 @@ import AuthPage from './pages/AuthPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
 gsap.registerPlugin(ScrollTrigger)
+gsap.defaults({ ease: 'power3.out', force3D: true })
 
 export default function App() {
   const [revealed] = useState(true)
@@ -24,8 +25,9 @@ export default function App() {
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) return
-    const lenis = new Lenis({ lerp: 0.08 })
+    const isTouch = window.matchMedia('(hover: none), (max-width: 1024px)').matches
+    if (reduced || isTouch) return
+    const lenis = new Lenis({ lerp: 0.08, syncTouch: false })
     lenis.on('scroll', ScrollTrigger.update)
     const tick = (t) => lenis.raf(t * 1000)
     gsap.ticker.add(tick)
@@ -49,11 +51,35 @@ export default function App() {
       t = setTimeout(() => ScrollTrigger.refresh(), 200)
     }
     window.addEventListener('resize', onResize)
+    window.addEventListener('load', onResize)
+
+    const media = Array.from(document.querySelectorAll('img, video'))
+    const pending = media.filter(el =>
+      el.tagName === 'IMG' ? !el.complete : el.readyState < 1
+    )
+    let remaining = pending.length
+    const onMediaReady = () => {
+      remaining -= 1
+      if (remaining <= 0) ScrollTrigger.refresh()
+    }
+    pending.forEach(el => {
+      const evt = el.tagName === 'IMG' ? 'load' : 'loadedmetadata'
+      el.addEventListener(evt, onMediaReady, { once: true })
+      el.addEventListener('error', onMediaReady, { once: true })
+    })
+    if (remaining === 0) ScrollTrigger.refresh()
+
     return () => {
       clearTimeout(t)
       window.removeEventListener('resize', onResize)
+      window.removeEventListener('load', onResize)
+      pending.forEach(el => {
+        const evt = el.tagName === 'IMG' ? 'load' : 'loadedmetadata'
+        el.removeEventListener(evt, onMediaReady)
+        el.removeEventListener('error', onMediaReady)
+      })
     }
-  }, [])
+  }, [location.pathname])
 
   useEffect(() => {
     if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true })

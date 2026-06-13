@@ -24,8 +24,12 @@ export default function WorkStrip() {
         x: () => -dist(), ease: 'none',
         scrollTrigger: {
           trigger: sectionRef.current, start: 'top top', end: () => '+=' + dist(),
-          pin: true, scrub: 1, invalidateOnRefresh: true,
-          onUpdate: (self) => { if (progressRef.current) progressRef.current.style.transform = `scaleX(${self.progress})` }
+          pin: true, pinSpacing: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1,
+          onUpdate: (self) => { if (progressRef.current) progressRef.current.style.transform = `scaleX(${self.progress})` },
+          onEnter: () => gsap.set(track, { willChange: 'transform' }),
+          onEnterBack: () => gsap.set(track, { willChange: 'transform' }),
+          onLeave: () => gsap.set(track, { clearProps: 'willChange' }),
+          onLeaveBack: () => gsap.set(track, { clearProps: 'willChange' }),
         }
       })
       return () => { tween.scrollTrigger?.kill(); tween.kill() }
@@ -54,7 +58,7 @@ export default function WorkStrip() {
               <div className="work-media">
                 <span className="work-frame-num">{p.frame}</span>
                 <span className="work-tag">{p.tag}</span>
-                <img src={p.img} alt={p.name} />
+                <img src={p.img} alt={p.name} loading="lazy" decoding="async" />
                 <div className="work-info">
                   <div>
                     <div className="work-name">{p.name}</div>
@@ -69,7 +73,7 @@ export default function WorkStrip() {
               <div className="work-media">
                 <span className="work-frame-num">{p.frame}</span>
                 <span className="work-tag">{p.tag}</span>
-                <img src={p.img} alt={p.name} />
+                <img src={p.img} alt={p.name} loading="lazy" decoding="async" />
                 <div className="work-info">
                   <div>
                     <div className="work-name">{p.name}</div>

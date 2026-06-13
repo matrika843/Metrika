@@ -85,7 +85,7 @@ export default function AuthPage({ mode }) {
   return (
     <main className="auth-wrap">
       <div className="auth-visual">
-        <img className="bgimg" src="https://picsum.photos/seed/metrikaauth/1000/1400?grayscale" alt="" />
+        <img className="bgimg" src="https://picsum.photos/seed/metrikaauth/1000/1400?grayscale" alt="" loading="lazy" decoding="async" />
         <Link to="/" className="auth-logo">
           <img src="/metrika-logo-premium.png" alt="METRIKA" />
         </Link>

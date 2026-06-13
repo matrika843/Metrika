@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import Reveal from '../components/Reveal'
+import { useLazyVideo } from '../hooks/useLazyVideo'
 
 const words = [
   { t: 'Your' }, { t: 'website' }, { t: 'is' }, { t: 'your' },
@@ -10,11 +11,12 @@ const words = [
 
 export default function AboutSection() {
   const stRef = useRef(null)
+  const videoRef = useLazyVideo()
 
   useEffect(() => {
     const tween = gsap.to(stRef.current.querySelectorAll('.w'), {
       opacity: 1, stagger: 0.05, ease: 'none',
-      scrollTrigger: { trigger: stRef.current, start: 'top 78%', end: 'top 30%', scrub: true }
+      scrollTrigger: { trigger: stRef.current, start: 'top 78%', end: 'top 30%', scrub: 0.6, invalidateOnRefresh: true }
     })
     return () => { tween.scrollTrigger?.kill(); tween.kill() }
   }, [])
@@ -30,7 +32,7 @@ export default function AboutSection() {
         </p>
         <div className="about-cols">
           <Reveal variant="scale" className="about-img">
-            <video autoPlay muted loop playsInline poster="/showreel-poster.jpg" src="/metrika-video.mp4" />
+            <video ref={videoRef} autoPlay muted loop playsInline preload="metadata" poster="/showreel-poster.jpg" src="/metrika-video.mp4" />
           </Reveal>
           <Reveal className="about-col" delay={0.1}>
             <h3>Performance, not promises</h3>

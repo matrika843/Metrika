@@ -3,23 +3,34 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ArrowRight, Play } from 'lucide-react'
 import Magnetic from '../components/Magnetic'
+import { useLazyVideo } from '../hooks/useLazyVideo'
 
 export default function Hero({ revealed }) {
   const rootRef = useRef(null)
   const canvasRef = useRef(null)
+  const videoRef = useLazyVideo()
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const canvas = canvasRef.current
     const ctx2d = canvas.getContext('2d')
+    const isMobile = window.matchMedia('(max-width: 1024px)').matches
+    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2)
     let pts = [], raf
-    const size = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight }
+    const size = () => {
+      canvas.width = canvas.offsetWidth * dpr
+      canvas.height = canvas.offsetHeight * dpr
+      ctx2d.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
     size(); addEventListener('resize', size)
-    for (let i = 0; i < 60; i++) pts.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.6 + 0.4, s: Math.random() * 0.0004 + 0.0001, o: Math.random() * 0.5 + 0.15 })
+    const count = isMobile ? 20 : 60
+    for (let i = 0; i < count; i++) pts.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.6 + 0.4, s: Math.random() * 0.0004 + 0.0001, o: Math.random() * 0.5 + 0.15 })
     const draw = () => {
-      ctx2d.clearRect(0, 0, canvas.width, canvas.height)
+      const w = canvas.width / dpr, h = canvas.height / dpr
+      ctx2d.clearRect(0, 0, w, h)
       pts.forEach(p => {
         p.y -= p.s; if (p.y < 0) p.y = 1
-        ctx2d.beginPath(); ctx2d.arc(p.x * canvas.width, p.y * canvas.height, p.r, 0, 7)
+        ctx2d.beginPath(); ctx2d.arc(p.x * w, p.y * h, p.r, 0, 7)
         ctx2d.fillStyle = `rgba(201,169,106,${p.o})`; ctx2d.fill()
       })
       raf = requestAnimationFrame(draw)
@@ -27,6 +38,7 @@ export default function Hero({ revealed }) {
     raf = requestAnimationFrame(draw)
     return () => { cancelAnimationFrame(raf); removeEventListener('resize', size) }
   }, [])
+
 
   useEffect(() => {
     if (!revealed) return
@@ -52,7 +64,7 @@ export default function Hero({ revealed }) {
   return (
     <section className="hero" ref={rootRef}>
       <div className="hero-bg">
-        <video autoPlay muted loop playsInline poster="https://picsum.photos/seed/metrikahero/1920/1080?grayscale">
+        <video ref={videoRef} autoPlay muted loop playsInline preload="metadata" poster="https://picsum.photos/seed/metrikahero/1920/1080?grayscale" fetchPriority="high">
           <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4" />
         </video>
       </div>

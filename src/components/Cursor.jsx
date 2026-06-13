@@ -5,7 +5,7 @@ export default function Cursor() {
   const ringRef = useRef(null)
 
   useEffect(() => {
-    if (window.matchMedia('(hover: none)').matches) return
+    if (window.matchMedia('(hover: none), (max-width: 1024px), (prefers-reduced-motion: reduce)').matches) return
     let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my
     let raf
     const onMove = (e) => {

@@ -33,7 +33,7 @@ export default function ServicesPage() {
     const tweens = gsap.utils.toArray('.svc-media img').map(img =>
       gsap.fromTo(img, { yPercent: -5, scale: 1.12 }, {
         yPercent: 5, ease: 'none',
-        scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true }
+        scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true }
       })
     )
     return () => tweens.forEach(t => { t.scrollTrigger?.kill(); t.kill() })
@@ -51,7 +51,7 @@ export default function ServicesPage() {
           <Reveal as="div" className={`svc-block ${s.flip ? 'flip' : ''}`} key={s.title} delay={0.05}>
             <div className="svc-media">
               <span className="work-tag">{s.tag}</span>
-              <img src={s.img} alt={s.title} />
+              <img src={s.img} alt={s.title} loading="lazy" decoding="async" />
             </div>
             <div>
               <div className="svc-kicker">{s.kicker}</div>

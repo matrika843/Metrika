@@ -10,7 +10,14 @@ export default function Marquee() {
   const trackRef = useRef(null)
 
   useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) return
+
+    const isMobile = window.matchMedia('(max-width: 1024px), (hover: none)').matches
     const tween = gsap.to(trackRef.current, { xPercent: -33.333, ease: 'none', duration: 18, repeat: -1 })
+
+    if (isMobile) return () => tween.kill()
+
     const st = ScrollTrigger.create({
       onUpdate: (self) => {
         const v = Math.abs(self.getVelocity()) / 1200

@@ -21,7 +21,7 @@ export default function WorkPage() {
               {p.url ? (
                 <a href={p.url} target="_blank" rel="noopener noreferrer" className="blog-card" data-cursor="view">
                   <div className="blog-card-media">
-                    <img src={p.img} alt={p.name} style={{ objectFit: 'contain', background: 'var(--surface)' }} />
+                    <img src={p.img} alt={p.name} loading="lazy" decoding="async" style={{ objectFit: 'contain', background: 'var(--surface)' }} />
                   </div>
                   <span className="blog-tag">{p.tag}</span>
                   <h3>{p.name}</h3>
@@ -30,7 +30,7 @@ export default function WorkPage() {
               ) : (
                 <div className="blog-card">
                   <div className="blog-card-media">
-                    <img src={p.img} alt={p.name} style={{ objectFit: 'contain', background: 'var(--surface)' }} />
+                    <img src={p.img} alt={p.name} loading="lazy" decoding="async" style={{ objectFit: 'contain', background: 'var(--surface)' }} />
                   </div>
                   <span className="blog-tag">{p.tag}</span>
                   <h3>{p.name}</h3>

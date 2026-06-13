@@ -10,7 +10,7 @@ export default function CTASection() {
     const ctx = gsap.context(() => {
       gsap.to('.cta .h-inner', {
         y: 0, duration: 1.1, stagger: 0.12, ease: 'power4.out',
-        scrollTrigger: { trigger: rootRef.current, start: 'top 70%' }
+        scrollTrigger: { trigger: rootRef.current, start: 'top 70%', invalidateOnRefresh: true }
       })
     }, rootRef)
     return () => ctx.revert()

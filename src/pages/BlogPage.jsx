@@ -45,7 +45,7 @@ export default function BlogPage() {
         <Reveal as="div">
           <Link to="/contact" className="blog-featured blog-card">
             <div className="blog-featured-media blog-card-media" style={{ marginBottom: 0 }}>
-              <img src={featured.img} alt={featured.title} />
+              <img src={featured.img} alt={featured.title} loading="lazy" decoding="async" />
             </div>
             <div>
               <span className="blog-tag">{featured.tag}</span>
@@ -59,7 +59,7 @@ export default function BlogPage() {
           {posts.map((p, i) => (
             <Reveal as="div" key={p.title} delay={(i % 3) * 0.08}>
               <Link to="/contact" className="blog-card">
-                <div className="blog-card-media"><img src={p.img} alt={p.title} /></div>
+                <div className="blog-card-media"><img src={p.img} alt={p.title} loading="lazy" decoding="async" /></div>
                 <span className="blog-tag">{p.tag}</span>
                 <h3>{p.title}</h3>
                 <div className="blog-meta">{p.meta}</div>
@@ -72,7 +72,7 @@ export default function BlogPage() {
         <div className="team-grid">
           {team.map((m, i) => (
             <Reveal as="div" key={m.name} delay={i * 0.1} className="team-card">
-              <div className="team-card-media"><img src={m.img} alt={m.name} /></div>
+              <div className="team-card-media"><img src={m.img} alt={m.name} loading="lazy" decoding="async" /></div>
               <h3>{m.name}</h3>
               <span className="blog-tag">{m.role}</span>
               <p style={{ color: '#A9A496', fontSize: 15, lineHeight: 1.8, margin: '16px 0' }}>{m.bio}</p>

@@ -9,7 +9,7 @@ export default function Footer() {
   useEffect(() => {
     const tween = gsap.to(markRef.current, {
       y: 0, ease: 'none',
-      scrollTrigger: { trigger: rootRef.current, start: 'top 90%', end: 'bottom bottom', scrub: true }
+      scrollTrigger: { trigger: rootRef.current, start: 'top 90%', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true }
     })
     return () => { tween.scrollTrigger?.kill(); tween.kill() }
   }, [])
